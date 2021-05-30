@@ -11,6 +11,7 @@ namespace ClothingStore.Models
         public int? ProductId { get; set; }
         public int? ManufacturerId { get; set; }
         public string CountryName { get; set; }
+
         public virtual Manufacturer Manufacturer { get; set; }
         public virtual Product Product { get; set; }
     }

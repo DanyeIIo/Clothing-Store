@@ -53,8 +53,11 @@ namespace ClothingStore.Models
             {
                 entity.ToTable("DeliveryCountry");
 
+                entity.HasIndex(e => e.CountryName, "UQ__Delivery__E056F20110CD0BBF")
+                    .IsUnique();
+
                 entity.Property(e => e.Id).HasColumnName("ID");
-                
+
                 entity.Property(e => e.CountryName)
                     .IsRequired()
                     .HasMaxLength(100);
@@ -165,16 +168,19 @@ namespace ClothingStore.Models
                 entity.HasOne(d => d.Manufacturer)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.ManufacturerId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Manufacturers");
 
                 entity.HasOne(d => d.Member)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.MemberId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Members");
 
                 entity.HasOne(d => d.Product)
                     .WithMany(p => p.Orders)
                     .HasForeignKey(d => d.ProductId)
+                    .OnDelete(DeleteBehavior.ClientSetNull)
                     .HasConstraintName("FK_Orders_Products");
             });
 

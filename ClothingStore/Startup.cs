@@ -11,6 +11,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.EntityFrameworkCore;
+using ClothingStore.Data;
 
 namespace ClothingStore
 {
@@ -33,6 +35,9 @@ namespace ClothingStore
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ClothingStore", Version = "v1" });
             });
             var connection = @"Server = MSI; Database = ClothingStore; Trusted_Connection = True;";
+
+            services.AddDbContext<ClothingStoreContext>(options =>
+                    options.UseSqlServer(Configuration.GetConnectionString("ClothingStoreContext")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

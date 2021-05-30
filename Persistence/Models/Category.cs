@@ -11,11 +11,7 @@ namespace ClothingStore.Models
         {
             ProductsCategories = new HashSet<ProductsCategory>();
         }
-        public Category(string name)
-        {
-            ProductsCategories = new HashSet<ProductsCategory>();
-            Name = name;
-        }
+
         public int Id { get; set; }
         public string Name { get; set; }
 
