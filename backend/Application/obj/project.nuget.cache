@@ -1,0 +1,13 @@
+{
+  "version": 2,
+  "dgSpecHash": "iyr94GQnlroCypp7IJK9IX/M1DQQ1kA/ZBzUK5U0UQW4QGro6qUSHfaCDacLFZC3EIwm4Ild3emoEsvLnKvwOw==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\Danyello\\Documents\\!projects\\ProjWorkVersion\\backend\\Application\\Application.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Danyello\\.nuget\\packages\\fluentvalidation\\10.1.0\\fluentvalidation.10.1.0.nupkg.sha512",
+    "C:\\Users\\Danyello\\.nuget\\packages\\mediatr\\9.0.0\\mediatr.9.0.0.nupkg.sha512",
+    "C:\\Users\\Danyello\\.nuget\\packages\\mediatr.extensions.microsoft.dependencyinjection\\9.0.0\\mediatr.extensions.microsoft.dependencyinjection.9.0.0.nupkg.sha512",
+    "C:\\Users\\Danyello\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\2.0.0\\microsoft.extensions.dependencyinjection.abstractions.2.0.0.nupkg.sha512"
+  ],
+  "logs": []
+}
