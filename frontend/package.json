@@ -16,6 +16,7 @@
     "cross-env": "7.0.0",
     "cssnano": "4.1.10",
     "cssnano-preset-advanced": "4.0.7",
+    "express": "^4.17.1",
     "imagemin-mozjpeg": "^8.0.0",
     "imagemin-webpack-plugin": "^2.4.2",
     "intersection-observer": "^0.7.0",

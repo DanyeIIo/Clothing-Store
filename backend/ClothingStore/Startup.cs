@@ -12,7 +12,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using Microsoft.EntityFrameworkCore;
-using ClothingStore.Data;
+using ClothingStore.Models;
+using NuxtIntegration.Helpers;
 
 namespace ClothingStore
 {
@@ -30,11 +31,13 @@ namespace ClothingStore
         {
 
             services.AddControllers();
+            services.AddSpaStaticFiles(options => options.RootPath = "client-app/dist");
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "ClothingStore", Version = "v1" });
             });
-            var connection = @"Server = MSI; Database = ClothingStore; Trusted_Connection = True;";
+
+            //var connection = @"Server = MSI; Database = ClothingStore; Trusted_Connection = True;";
 
             services.AddDbContext<ClothingStoreContext>(options =>
                     options.UseSqlServer(Configuration.GetConnectionString("ClothingStoreContext")));
@@ -43,18 +46,26 @@ namespace ClothingStore
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            if (env.IsDevelopment())
+            app.UseSpa(spa =>
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ClothingStore v1"));
-            }
+                spa.Options.SourcePath = "client-app";
+                if (env.IsDevelopment())
+                {
+                    spa.UseNuxtDevelopmentServer();
+
+                    app.UseDeveloperExceptionPage();
+                    app.UseSwagger();
+                    app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "ClothingStore v1"));
+                }
+            });
 
             app.UseHttpsRedirection();
 
             app.UseRouting();
 
             app.UseAuthorization();
+
+            app.UseSpaStaticFiles();
 
             app.UseEndpoints(endpoints =>
             {

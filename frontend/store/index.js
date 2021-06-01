@@ -1,4 +1,5 @@
 // function for Mock API
+
 const sleep = m => new Promise(r => setTimeout(r, m))
 const categories = [
     {
@@ -47,6 +48,7 @@ function addProductsToCategory (products, category) {
     })
     return categoryInner
 }
+
 export const state = () => ({
 CategoriesCards: [],
 currentCategory: {},
@@ -61,6 +63,9 @@ export const mutations = {
     },
     SET_CURRENT_PRODUCT (state, product) {
     state.currentProduct = product
+    },
+    GET_ALL_PRODUCTS (state, products) {
+        state.products = products
     }
 }
 export const actions = {
@@ -72,6 +77,11 @@ export const actions = {
         console.log(err)
         throw new Error('Внутреняя ошибка сервера, сообщите администратору')
         }
+    },
+    async getAllProducts()
+    {
+        let res = await this.$axios.get('/api/Products')
+        return res;
     },
     async getCurrentCategory ({ commit }, { route }) {
     await sleep(1000)

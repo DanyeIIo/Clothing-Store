@@ -15,6 +15,7 @@ namespace ClothingStore.Models
         public ClothingStoreContext(DbContextOptions<ClothingStoreContext> options)
             : base(options)
         {
+            Database.EnsureCreated();
         }
 
         public virtual DbSet<Category> Categories { get; set; }

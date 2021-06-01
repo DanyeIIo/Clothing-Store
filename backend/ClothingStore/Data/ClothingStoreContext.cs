@@ -9,7 +9,7 @@ namespace ClothingStore.Data
 {
     public class ClothingStoreContext : DbContext
     {
-        public ClothingStoreContext (DbContextOptions<ClothingStoreContext> options)
+        public ClothingStoreContext(DbContextOptions<ClothingStoreContext> options)
             : base(options)
         {
         }
