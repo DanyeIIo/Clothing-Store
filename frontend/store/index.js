@@ -1,6 +1,9 @@
 // function for Mock API
+import axios from 'axios'
 
 const sleep = m => new Promise(r => setTimeout(r, m))
+
+
 const categories = [
     {
         id: 'clothings',
@@ -52,22 +55,14 @@ function addProductsToCategory (products, category) {
 export const state = () => ({
 CategoriesCards: [],
 currentCategory: {},
-currentProduct: {}
+currentProduct: {},
+
+posts: [],
+
+items: [],
+
 })
-export const mutations = {
-    SET_CATEGORIES_CARDS (state, categories) {
-        state.CategoriesCards = categories
-    },
-    SET_CURRENT_CATEGORY (state, category) {
-        state.currentCategory = category
-    },
-    SET_CURRENT_PRODUCT (state, product) {
-    state.currentProduct = product
-    },
-    GET_ALL_PRODUCTS (state, products) {
-        state.products = products
-    }
-}
+
 export const actions = {
     async getCategoriesCards ({ commit }) {
         try {
@@ -78,16 +73,59 @@ export const actions = {
         throw new Error('Внутреняя ошибка сервера, сообщите администратору')
         }
     },
-    async getAllProducts()
-    {
-        let res = await this.$axios.get('/api/Products')
-        return res;
-    },
     async getCurrentCategory ({ commit }, { route }) {
     await sleep(1000)
-    const category = categories.find((cat) => cat.cSlug === route.params.CategorySlug)
-    const products = await this.$axios.$get('/mock/products.json')
+    const category = categories.find((clothings) => clothings.cSlug === route.params.CategorySlug)
+    const products = await this.$axios.$get('~/static/generated.json')
 
     await commit('SET_CURRENT_CATEGORY', addProductsToCategory(products, category))
+    },
+
+    // ------------------- for sales page with axios
+
+    async GET_ITEMS_FROM_API({commit}) {
+    const res = await this.$axios.$get('Products')
+    // const res = await axios.get('http://localhost:44380/api/Products')
+    commit('SET_ITEMS_TO_VUEX', res)
+    },
+
+
+    // ------------------- for new releases page
+
+    async fetchPosts(context) {    // actions: забирает некую информацию из базы
+        const res = await fetch('http://www.json-generator.com/api/json/get/ceVCfZFSBe?indent=2');
+        const posts = await res.json();
+        context.commit('updatePosts', posts) // вызываем мутацию и также передаем туда наш массив 
+    }
+    // https://jsonplaceholder.typicode.com/photos?_limit=3
+}
+
+export const mutations = {
+    SET_CATEGORIES_CARDS (state, categories) {
+        state.CategoriesCards = categories
+    },
+    SET_CURRENT_CATEGORY (state, category) {
+        state.currentCategory = category
+    },
+    SET_CURRENT_PRODUCT (state, product) {
+    state.currentProduct = product
+    },
+    updatePosts (state, posts) { // mutations: изменяет инфу уже на самой страничке
+        state.posts = posts
+    },
+    SET_ITEMS_TO_VUEX(state, items) {
+        state.items = items
     }
 }
+
+export const getters = {
+    allPosts(state) {
+        return state.posts
+    },
+    postsCount(state) {
+        return state.posts.length
+    },
+    allItems(state) {
+        return state.items
+    }
+} 
