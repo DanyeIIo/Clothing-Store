@@ -37,7 +37,11 @@ namespace ClothingStore
             //// Adding an ICertificateValidationCache results in certificate auth caching the results.
             //// The default implementation uses a memory cache.
             //            .AddCertificateCache();
-
+            services.AddCors(options =>
+            {
+                options.AddPolicy("AllowSpecificOrigin",
+                    builder => builder.WithOrigins("http://localhost:3000"));
+            });
             services.AddHttpsRedirection(options =>
             {
                 options.RedirectStatusCode = StatusCodes.Status307TemporaryRedirect;

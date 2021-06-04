@@ -28,8 +28,8 @@ namespace ClothingStore.Controllers
         }
 
         // GET: api/Manufacturers/5
-        [HttpGet("{id}")]
-        public async Task<ActionResult<Manufacturer>> GetManufacturer(int id)
+        [HttpGet("id")]
+        public async Task<ActionResult<Manufacturer>> GetManufacturer([FromHeader] int id)
         {
             var manufacturer = await _context.Manufacturers.FindAsync(id);
 
