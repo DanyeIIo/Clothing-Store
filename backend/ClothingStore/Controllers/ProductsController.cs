@@ -1,4 +1,5 @@
 ﻿using ClothingStore.Models;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -11,6 +12,8 @@ namespace ClothingStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
+    [EnableCors("MyPolicy")]
+
     public class ProductsController : ControllerBase
     {
         private readonly ClothingStoreContext _context;
