@@ -12,8 +12,7 @@ namespace ClothingStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("MyPolicy")]
-
+    //[EnableCors("MyPolicy")]
     public class CategoriesController : ControllerBase
     {
         private readonly ClothingStoreContext _context;

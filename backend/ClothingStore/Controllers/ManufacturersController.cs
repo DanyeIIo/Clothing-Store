@@ -26,7 +26,7 @@ namespace ClothingStore.Controllers
         {
             return await _context.Manufacturers.ToListAsync();
         }
-
+        //ODataController
         // GET: api/Manufacturers/5
         [HttpGet("id")]
         public async Task<ActionResult<Manufacturer>> GetManufacturer([FromHeader] int id)

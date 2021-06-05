@@ -12,7 +12,6 @@ namespace ClothingStore.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    [EnableCors("MyPolicy")]
 
     public class ProductsController : ControllerBase
     {

@@ -20,6 +20,8 @@ namespace ClothingStore.Models
         public decimal Cost { get; set; }
         public DateTime ExhibitionDate { get; set; }
         public string Description { get; set; }
+        public string Avatar { get; set; }
+        public string Model { get; set; }
 
         public virtual ICollection<DeliveryCountry> DeliveryCountries { get; set; }
         public virtual ICollection<MembersProduct> MembersProducts { get; set; }

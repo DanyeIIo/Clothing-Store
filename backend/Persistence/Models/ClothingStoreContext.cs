@@ -15,7 +15,6 @@ namespace ClothingStore.Models
         public ClothingStoreContext(DbContextOptions<ClothingStoreContext> options)
             : base(options)
         {
-            Database.EnsureCreated();
         }
 
         public virtual DbSet<Category> Categories { get; set; }
@@ -194,6 +193,8 @@ namespace ClothingStore.Models
                 entity.Property(e => e.Description).IsRequired();
 
                 entity.Property(e => e.ExhibitionDate).HasColumnType("date");
+
+                entity.Property(e => e.Model).HasMaxLength(64);
 
                 entity.Property(e => e.Name)
                     .IsRequired()
