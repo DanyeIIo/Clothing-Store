@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ClothingStore.Models
+namespace Infrastructure.Persistence.Models
 {
     public partial class MembersProduct
     {
