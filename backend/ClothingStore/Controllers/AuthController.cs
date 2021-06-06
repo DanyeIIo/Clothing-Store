@@ -66,16 +66,25 @@ namespace ClothingStore.Controllers
                 new Claim(JwtRegisteredClaimNames.Email, user.Email),
                 new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
             };
-            
-            claims.Add(new Claim("role", user.Role.RoleType));
+            Role role = _context.Roles.First(x => x.Id == user.RoleId);
+
+            claims.Add(new Claim("role", role.RoleType));
 
             var token = new JwtSecurityToken(
                 authParams.Issuer,
                 authParams.Audience,
                 claims,
                 expires: DateTime.Now.AddSeconds(authParams.DurationInMinutes),
-                signingCredentials: credentials
-            );
+                signingCredentials: new SigningCredentials(authParams.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
+                );
+
+            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
+
+            var response = new
+            {
+                access_token = encodedJwt,
+                email = user.Email
+            };
 
             return new JwtSecurityTokenHandler().WriteToken(token);
         }
