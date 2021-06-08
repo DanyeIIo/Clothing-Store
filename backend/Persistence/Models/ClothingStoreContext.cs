@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata;
 
 #nullable disable
 
-namespace ClothingStore.Models
+namespace Infrastructure.Persistence.Models
 {
     public partial class ClothingStoreContext : DbContext
     {
@@ -52,7 +52,6 @@ namespace ClothingStore.Models
             modelBuilder.Entity<DeliveryCountry>(entity =>
             {
                 entity.ToTable("DeliveryCountry");
-
                 entity.HasIndex(e => e.CountryName, "UQ__Delivery__E056F20110CD0BBF")
                     .IsUnique();
 

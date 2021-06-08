@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 #nullable disable
 
-namespace ClothingStore.Models
+namespace Infrastructure.Persistence.Models
 {
     public partial class Member
     {
@@ -24,7 +24,7 @@ namespace ClothingStore.Models
         public string Avatar { get; set; }
         public int RoleId { get; set; }
         public string Password { get; set; }
-
+        
         public virtual Role Role { get; set; }
         public virtual ICollection<MembersProduct> MembersProducts { get; set; }
         public virtual ICollection<Order> Orders { get; set; }

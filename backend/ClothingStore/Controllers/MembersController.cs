@@ -1,4 +1,4 @@
-﻿using ClothingStore.Models;
+﻿using Infrastructure.Persistence.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
@@ -86,10 +86,10 @@ namespace ClothingStore.Controllers
         }
 
         // POST: api/Members
-        // To protect from overposting attacks, see https://go.microsoft.com/fwlink/?linkid=2123754
         [HttpPost]
         public async Task<ActionResult<Member>> PostMember(Member member)
         {
+            member.Role.RoleType = "User";
             _context.Members.Add(member);
             await _context.SaveChangesAsync();
 

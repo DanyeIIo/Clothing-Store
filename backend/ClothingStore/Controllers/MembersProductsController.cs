@@ -1,4 +1,4 @@
-﻿using ClothingStore.Models;
+﻿using Infrastructure.Persistence.Models;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using System;
