@@ -25,12 +25,19 @@ module.exports = {
   serverMiddleware: [
   ],
   router: {
-    prefetchLinks: false
+    prefetchLinks: false,
+
+    // extendRoutes(routes, resolve) {
+    // routes.push({
+    //     name: 'productPage',
+    //     path: '/cat/:id',
+    //     component: resolve(__dirname, 'pages/About.vue')
+    // })
+    // }
   },
   loading: { color: '#ddd' },
   css: [
     'normalize.css'
-    //'./assets/scss/global-styles.scss'
   ],
   plugins: [
     // '~plugins/vuejs-paginate'
@@ -42,7 +49,6 @@ module.exports = {
     'nuxt-webfontloader',
     'cookie-universal-nuxt',
     '@nuxtjs/tailwindcss',
-    // 'vuejs-paginate'
   ],
 
   webfontloader: {
@@ -67,6 +73,7 @@ module.exports = {
     baseURL: 'http://localhost:44380/api/'
       // 'https://api.nuxtjs.dev'      -- default url
       // 'http://localhost:3004/items' -- my url from json server plugin
+      // 'http://localhost:44380/api/' -- HaLLI backend
   },
   render: {
     // http2: {
@@ -122,32 +129,6 @@ module.exports = {
         ignoreOrder: true
       }
     }),
-    transpile: ['vue-lazy-hydration', 'intersection-observer'],
-
-    postcss: {
-      plugins: {
-        ...(!isDev && {
-          cssnano: {
-            preset: ['advanced', {
-              autoprefixer: false,
-              cssDeclarationSorter: false,
-              zindex: false,
-              discardComments: {
-                removeAll: true
-              }
-            }]
-          }
-        })
-      },
-      ...(!isDev && {
-        preset: {
-          browsers: 'cover 99.5%',
-          autoprefixer: true
-        }
-      }),
-
-      order: 'cssnanoLast'
-    },
     extend (config, ctx) {
       const ORIGINAL_TEST = '/\\.(png|jpe?g|gif|svg|webp)$/i'
       const vueSvgLoader = [
