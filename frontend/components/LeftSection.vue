@@ -1,5 +1,5 @@
-<template>
-            <div class="leftBar h-2/6 w-1/6 px-8">
+  <template>
+            <div class="leftBar h-2/6 row-start-2 px-8">
                 <h4 class="text-gray-500 font-bold">New releases(22)</h4>
                 <hr class="border-t-2 border-gray-500 mt-2 py-4">
                 <ul>

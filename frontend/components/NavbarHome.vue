@@ -39,7 +39,7 @@
                 Kids</nuxt-link></li>
             <li><nuxt-link to="/collection" @click="isOpen = false" active-class="text-blue-300" class="text-gray-100 hover:text-black text-md px-3">
                 Collection</nuxt-link></li>
-            <li><nuxt-link to="/sale" @click="isOpen = false" active-class="text-blue-300" class="text-gray-100 hover:text-black text-md px-3">
+            <li><nuxt-link to="/cat/sale" @click="isOpen = false" active-class="text-blue-300" class="text-gray-100 hover:text-black text-md px-3">
                 Sale</nuxt-link></li>
         </ul>
     </div>

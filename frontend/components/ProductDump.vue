@@ -1,10 +1,10 @@
 <template>
-<div class="w-1/3 mx-auto">
-    <nuxt-link :to="`/product/${product.pSlug}`">
-        <p>{{ product.pName }}</p>
-        <img :src="product.image" />
+<div class="">
+    <nuxt-link :to="`/product/${product.id}`">
+        <p>{{ product.name }}</p>
+        <img :src="product.avatar" />
     </nuxt-link>
-    <p>Цена {{ product.pPrice }}</p>
+    <p>Цена {{ product.cost }}</p>
 </div>
 </template>
 
