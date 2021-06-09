@@ -24,7 +24,7 @@ namespace Infrastructure.Persistence.Models
         public virtual DbSet<MembersProduct> MembersProducts { get; set; }
         public virtual DbSet<Order> Orders { get; set; }
         public virtual DbSet<Product> Products { get; set; }
-        public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
+        //public virtual DbSet<ProductsCategory> ProductsCategories { get; set; }
         public virtual DbSet<Role> Roles { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -34,6 +34,7 @@ namespace Infrastructure.Persistence.Models
                 //#warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
                 optionsBuilder.UseSqlServer("Server=MSI;Database=ClothingStore;Trusted_Connection=True;");
             }
+
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -200,24 +201,24 @@ namespace Infrastructure.Persistence.Models
                     .HasMaxLength(25);
             });
 
-            modelBuilder.Entity<ProductsCategory>(entity =>
-            {
-                entity.Property(e => e.Id).HasColumnName("ID");
+            //modelBuilder.Entity<ProductsCategory>(entity =>
+            //{
+            //    entity.Property(e => e.Id).HasColumnName("ID");
 
-                entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
+            //    entity.Property(e => e.CategoryId).HasColumnName("CategoryID");
 
-                entity.Property(e => e.ProductId).HasColumnName("ProductID");
+            //    entity.Property(e => e.ProductId).HasColumnName("ProductID");
 
-                entity.HasOne(d => d.Category)
-                    .WithMany(p => p.ProductsCategories)
-                    .HasForeignKey(d => d.CategoryId)
-                    .HasConstraintName("FK_ProductsCategories_Categories");
+            //    entity.HasOne(d => d.Category)
+            //        .WithMany(p => p.Products)
+            //        .HasForeignKey(d => d.CategoryId)
+            //        .HasConstraintName("FK_ProductsCategories_Categories");
 
-                entity.HasOne(d => d.Product)
-                    .WithMany(p => p.ProductsCategories)
-                    .HasForeignKey(d => d.ProductId)
-                    .HasConstraintName("FK_ProductsCategories_Products");
-            });
+            //    entity.HasOne(d => d.Product)
+            //        .WithMany(p => p.ProductsCategories)
+            //        .HasForeignKey(d => d.ProductId)
+            //        .HasConstraintName("FK_ProductsCategories_Products");
+            //});
 
             modelBuilder.Entity<Role>(entity =>
             {
