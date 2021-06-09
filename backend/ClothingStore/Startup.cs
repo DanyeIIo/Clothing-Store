@@ -65,8 +65,12 @@ namespace ClothingStore
             });
             //var connection = @"Server = MSI; Database = ClothingStore; Trusted_Connection = True;";
 
-            services.AddDbContext<ClothingStoreContext>(options =>
-                    options.UseSqlServer(Configuration.GetConnectionString("ClothingStoreContext")));
+            services.AddDbContext<ClothingStoreContext>(options => {
+
+                options.UseSqlServer("ClothingStoreContext", b => b.MigrationsAssembly("ClothingStore"));
+
+                options.UseSqlServer(Configuration.GetConnectionString("ClothingStoreContext"));
+});
 
             var authOptionsConfiguration = Configuration.GetSection("Auth");
             services.Configure<JWTSettings>(authOptionsConfiguration);

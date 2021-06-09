@@ -29,7 +29,7 @@ namespace ClothingStore.Controllers
             return await _context.Products.ToListAsync();
         }
 
-        // GET: api/Products/5
+         //GET: api/Products/5
         [HttpGet("{id}")]
         public async Task<ActionResult<Product>> GetProduct(int id)
         {
@@ -41,6 +41,34 @@ namespace ClothingStore.Controllers
             }
 
             return product;
+        }
+        [HttpGet("products")]
+        public async Task<ActionResult<Product[]>> GetProductsByCategory([FromHeader] string category)
+        {
+            var products = await _context.Products
+                .Include(x => x.Categories)
+                .Where(x =>
+                    x.Categories.Any(x => x.Name == category)
+                ).ToListAsync();
+
+            //var allProducts = await _context.Products.ToArrayAsync();
+
+            //List<Product> productsByCategory = new();
+
+            //foreach (var product in allProducts)
+            //{
+            //    if (productsCategories.Any(x => x.ProductId == product.Id))
+            //    {
+            //        productsByCategory.Add(product);
+            //    }
+            //}
+
+            if (products.Count > 0)
+            {
+                return Ok(products.ToArray());
+            }
+
+            return NotFound();
         }
 
         // PUT: api/Products/5

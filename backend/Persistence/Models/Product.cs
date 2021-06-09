@@ -12,7 +12,8 @@ namespace Infrastructure.Persistence.Models
             DeliveryCountries = new HashSet<DeliveryCountry>();
             MembersProducts = new HashSet<MembersProduct>();
             Orders = new HashSet<Order>();
-            ProductsCategories = new HashSet<ProductsCategory>();
+            Categories = new HashSet<Category>();
+            //ProductsCategories = new HashSet<ProductsCategory>();
         }
 
         public int Id { get; set; }
@@ -23,9 +24,10 @@ namespace Infrastructure.Persistence.Models
         public string Avatar { get; set; }
         public string Model { get; set; }
 
+        public ICollection<Category> Categories { get; set; }
         public virtual ICollection<DeliveryCountry> DeliveryCountries { get; set; }
         public virtual ICollection<MembersProduct> MembersProducts { get; set; }
         public virtual ICollection<Order> Orders { get; set; }
-        public virtual ICollection<ProductsCategory> ProductsCategories { get; set; }
+        //public virtual ICollection<ProductsCategory> ProductsCategories { get; set; }
     }
 }

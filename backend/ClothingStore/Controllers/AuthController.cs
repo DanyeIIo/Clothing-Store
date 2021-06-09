@@ -54,39 +54,33 @@ namespace ClothingStore.Controllers
             return _context.Members.SingleOrDefault(x => x.Email == requestEmail && x.Password == requestPassword);
         }
 
-        private string GenerateJWT(Member user)
-        {
-            var authParams = _jwtSettings.Value;
+private string GenerateJWT(Member user)
+{
+    var authParams = _jwtSettings.Value;
 
-            var securityKey = authParams.GetSymmetricSecurityKey();
-            var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.Sha256);
+    var securityKey = authParams.GetSymmetricSecurityKey();
+    var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.Sha256);
 
-            var claims = new List<Claim>()
-            {
-                new Claim(JwtRegisteredClaimNames.Email, user.Email),
-                new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
-            };
-            Role role = _context.Roles.First(x => x.Id == user.RoleId);
+    var claims = new List<Claim>()
+    {
+        new Claim(JwtRegisteredClaimNames.Email, user.Email),
+        new Claim(JwtRegisteredClaimNames.Sub, user.Id.ToString()),
+    };
+    Role role = _context.Roles.First(x => x.Id == user.RoleId);
 
-            claims.Add(new Claim("role", role.RoleType));
+    claims.Add(new Claim("role", role.RoleType));
 
-            var token = new JwtSecurityToken(
-                authParams.Issuer,
-                authParams.Audience,
-                claims,
-                expires: DateTime.Now.AddSeconds(authParams.DurationInMinutes),
-                signingCredentials: new SigningCredentials(authParams.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
-                );
+    var token = new JwtSecurityToken(
+        authParams.Issuer,
+        authParams.Audience,
+        claims,
+        expires: DateTime.Now.AddSeconds(authParams.DurationInMinutes),
+        signingCredentials: new SigningCredentials(authParams.GetSymmetricSecurityKey(), SecurityAlgorithms.HmacSha256)
+        );
 
-            var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
+    var encodedJwt = new JwtSecurityTokenHandler().WriteToken(token);
 
-            var response = new
-            {
-                access_token = encodedJwt,
-                email = user.Email
-            };
-
-            return new JwtSecurityTokenHandler().WriteToken(token);
-        }
+    return new JwtSecurityTokenHandler().WriteToken(token);
+}
     }
 }

@@ -5,16 +5,16 @@ using System.Collections.Generic;
 
 namespace Infrastructure.Persistence.Models
 {
-    public partial class Category
+    public class Category
     {
         public Category()
         {
-            ProductsCategories = new HashSet<ProductsCategory>();
+            Products = new HashSet<Product>();
         }
 
         public int Id { get; set; }
         public string Name { get; set; }
 
-        public virtual ICollection<ProductsCategory> ProductsCategories { get; set; }
+        public virtual ICollection<Product> Products { get; set; }
     }
 }
