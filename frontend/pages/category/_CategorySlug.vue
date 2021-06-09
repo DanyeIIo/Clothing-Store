@@ -1,50 +1,56 @@
 <template>
 <div>
+    <h1>category page</h1>
     <h1>{{ category.cName }}</h1>
-    <p>{{ category.cDesc }}</p>
-    <div :class="productList">
-    <div v-for="product in category.products" :key="product.id">
-        <!-- <ProductDump :product="product" /> -->
-    </div>
+    <div class="flex">
+        <LeftBar />
+        <div v-for="product in allItems" :key="product.id">
+            <img :src="product.avatar" />
+            <p class="text-center font-bold">{{ product.name }}</p>
+            <p class="text-center font-bold">{{ product.model }}</p>
+            <p class="text-center font-bold text-sm text-gray-400">{{ product.cost }}</p>
+        </div>
     </div>
 </div>
 </template>
 
 <script>
+import { mapState, mapGetters, mapActions } from 'vuex'
 import ProductDump from '@/components/ProductDump'
-import { mapState } from 'vuex'
+import LeftBar from '~/components/LeftSection.vue'
+import ItemContainer from '~/components/ItemContainer.vue'
 export default {
-components: {
-    ProductDump
-},
-    async asyncData ({ app, params, route, error }) {
-        try {
-        await app.store.dispatch('getCurrentCategory', { route })
-        } catch (err) {
-        console.log(err)
-        return error({
-            statusCode: 404,
-            message: 'Категория не найдена или сервер не доступен'
-        })
-        }
+    components: {
+        ProductDump,
+        LeftBar,
+        ItemContainer
     },
-computed: {
-    ...mapState({
-    category: 'currentCategory'
-    })
-},
-head () {
-    return {
-    title: this.category.cTitle,
-    meta: [
-        {
-        hid: 'description',
-        name: 'description',
-        content: this.category.cMetaDescription
-        }
-    ]
-    }
-}
+        async asyncData ({ app, params, route, error }) {
+            try {
+            await app.store.dispatch('getCurrentCategory', { route })
+            } catch (err) {
+            console.log(err)
+            return error({
+                statusCode: 404,
+                message: 'Категория не найдена или сервер не доступен'
+            })
+            }
+        },
+    computed: {
+        ...mapState({
+        category: 'currentCategory'
+        }),
+        ...mapGetters([
+            'allPosts',
+            'postsCount',
+            'allItems'
+        ])
+    },
+    methods: mapActions(['fetchPosts', 'GET_ITEMS_FROM_API']),
+    async mounted(){
+        this.fetchPosts(),
+        this.GET_ITEMS_FROM_API()
+    }  
 }
 </script>
 <style scoped>
