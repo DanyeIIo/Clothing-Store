@@ -46,6 +46,7 @@ currentProduct: {},
 
 posts: [],
 
+item: Object,
 items: [],
 users: []
 
@@ -74,10 +75,9 @@ export const actions = {
     // const res = await axios.get('http://localhost:44380/api/Products')
     await commit('SET_ITEMS_TO_VUEX', res)
     },
-    async GET_ITEM_TO_ID({commit}) {
-        const res = await this.$axios.$get('Products/8')
-        // const res = await axios.get('http://localhost:44380/api/Products')
-        await commit('SET_ITEMS_TO_VUEX', res)
+    async GET_ITEM_TO_ID({commit}, index) {
+        const res = await this.$axios.$get('Products/' + index)
+        await commit('SET_ITEM_ID_TO_VUEX', res)
     },
 
 
@@ -107,10 +107,13 @@ export const mutations = {
     SET_ITEMS_TO_VUEX(state, items) {
         state.items = items
     },
-
+    SET_ITEM_ID_TO_VUEX(state, item){
+        state.item = item
+    },
     POST_SEND_LOGIN(state, newUser) {
         state.users.push(newUser);
     }
+
 }
 
 export const getters = {
@@ -122,5 +125,8 @@ export const getters = {
     },
     allItems(state) {
         return state.items
+    },
+    oneItem(state) {
+        return state.item
     }
 } 
