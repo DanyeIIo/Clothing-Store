@@ -2,38 +2,49 @@
     <div class="row-start-4">        
         <div>
         </div>
-        <div class="flex px-4 flex-row flex-wrap">
+        <div class= "p-4 grid md:grid-rows-3 md:grid-flow-col gap-4  sm:grid-rows-4 sm:grid-flow-row">
         <!-- <ItemContainer 
             v-for="product in paginatedProducts" 
             :key="product.id"
             :item_data="product"
         /> -->
         <div class="prodCard mx-auto cursor-pointer" 
-        v-for="product in ProductsList"
+        v-for="(product) in paginatedProducts"
         :key="product.id" 
         @click.prevent="openProduct(product)">
+        
 
             <img :src="product.avatar" />
             <p class="text-center font-bold">{{ product.name }}</p>
-            <p class="text-center font-bold">{{ product.model }}</p>
-            <p class="text-center font-bold text-sm text-gray-400">{{ product.cost }}</p>
+            <p class="text-center font-bold" v-if="product.model != null">"{{ product.model }}"</p>
+            <p class="text-center font-bold text-sm text-gray-400">${{ product.cost }}.00</p>
             </div>
         </div>
 
-    <div v-if="pages > 9" class="paginator mx-auto flex flex-wrap justify-center">
-        <p @click="prevPage(pageNumber)" v-if="pageNumber > 1">prev</p>
+    <div v-if="pages < 9" class="paginator my-8 grid grid-flow-col gap-2">
+        
+        <div class="justify-self-start transform hover:scale-110 cursor-pointer">
+            <div @click="prevPage(pageNumber)" v-if="pageNumber > 1" class="grid grid-flow-col">
+                <img src="~/assets/pictures/ArrowBlack.png" alt="Prev page" class="transform rotate-180">
+                <p>Prev Page</p>
+            </div>
+        </div>
 
         <div v-for="page in pages" 
         :key="page" 
         @click="ChangePage(page)"
-        class="page p-2 border-2 mx-1 border-blue-500 hover:bg-gray-400">
+        class=" pt-0.5 text-center mx-1 hover:bg-deep-blue hover:text-white"
+        :class="{'bg-deep-blue text-white': page === pageNumber}">
             {{ page }}
         </div>
 
-        <p @click="nextPage(pageNumber)" v-if="pageNumber < pages">next</p>
-        <div>
+        <div class="pr-40 justify-self-end transform hover:scale-110 cursor-pointer">
+            <div @click="nextPage(pageNumber)" v-if="pageNumber < pages" class="grid grid-flow-col">
+                <p>Next Page</p>
+                <img src="~/assets/pictures/ArrowBlack.png" alt="Next page" class="">
+            </div>
         </div>
-        <!-- <p class="text-red-500">{{ this.pageNumber }}</p> -->
+
         </div>  
     </div>
 </template>
@@ -57,7 +68,6 @@ export default {
         return {
             ItemsPerPage: 9,
             pageNumber: +this.$route.query.page || 1,
-            // currentPage: 0
         }
     },
     computed: {
@@ -76,23 +86,22 @@ export default {
             this.pageNumber = page;
         },
         nextPage(pageNumber) {
-            if(pageNumber + 1 > Math.ceil(this.ProductsList.length / this.ItemsPerPage)){
-                return;
-            }
+            // if(pageNumber + 1 > Math.ceil(this.ProductsList.length / this.ItemsPerPage)){
+            //     return;
+            // }
             this.$router.push(`${this.$route.path}?page=${pageNumber+1}`);
             this.pageNumber++;
-            console.log(pageNumber)
         },
         prevPage(pageNumber) {
-            if(pageNumber - 1 < Math.ceil(this.ProductsList.length / this.ItemsPerPage)){
-                return;
-            }
+            // if(pageNumber - 1 < Math.ceil(this.ProductsList.length / this.ItemsPerPage)){
+            //     return;
+            // }
             this.$router.push(`${this.$route.path}?page=${pageNumber-1}`);
             this.pageNumber--;
         },
         openProduct(product) {
-            // this.$router.push('/cat/product/' + product.id)
-            this.$router.push(`${this.$route.path}/product/${product.id}`);
+            this.$router.push('/cat/product/' + product.id)
+            // this.$router.push(`${this.$route.path}/product/${product.id}`);
         }
     }
     
