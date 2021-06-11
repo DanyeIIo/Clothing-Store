@@ -5,8 +5,7 @@ module.exports = {
     extend: {
       backgroundImage: theme => ({
       'home-page': "url('assets/pictures/home-bg.png')",
-      'home-page-fhd': "url('assets/pictures/home-fhd.png')",
-      'clothing-bg': "url(assets/pictures/nigga.png)"
+      'home-page-fhd': "url('assets/pictures/home-fhd.png')"
       }),
     fontFamily: theme =>({
       'verdana': ['Verdana'],
